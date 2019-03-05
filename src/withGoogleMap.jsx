@@ -16,6 +16,7 @@ export function withGoogleMap(BaseComponent) {
     static propTypes = {
       containerElement: PropTypes.node.isRequired,
       mapElement: PropTypes.node.isRequired,
+      onMapInitialized: PropTypes.func.isRequired,
     }
 
     static childContextTypes = {
@@ -57,7 +58,7 @@ export function withGoogleMap(BaseComponent) {
       )
       // https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
       const map = new google.maps.Map(node)
-      this.setState({ map })
+      this.setState({ map }, () => this.props.onMapInitialized(this.state.map))
     }
 
     render() {
