@@ -15,7 +15,13 @@ import {
   componentWillUnmount,
 } from "../utils/MapChildHelper"
 
-import { MAP, MARKER, ANCHOR, MARKER_CLUSTERER } from "../constants"
+import {
+  MAP,
+  MARKER,
+  ANCHOR,
+  MARKER_CLUSTERER,
+  OVERLAPPING_SPIDERFIER,
+} from "../constants"
 
 /**
  * A wrapper around `google.maps.Marker`
@@ -223,6 +229,11 @@ export class Marker extends React.PureComponent {
     /**
      * function
      */
+    onSpiderClick: PropTypes.func,
+
+    /**
+     * function
+     */
     onClickableChanged: PropTypes.func,
 
     /**
@@ -274,11 +285,17 @@ export class Marker extends React.PureComponent {
      * function
      */
     onZindexChanged: PropTypes.func,
+
+    /**
+     * function
+     */
+    onMarkerInitialized: PropTypes.func,
   }
 
   static contextTypes = {
     [MAP]: PropTypes.object,
     [MARKER_CLUSTERER]: PropTypes.object,
+    [OVERLAPPING_SPIDERFIER]: PropTypes.object,
   }
 
   static childContextTypes = {
@@ -291,10 +308,14 @@ export class Marker extends React.PureComponent {
   constructor(props, context) {
     super(props, context)
     const marker = new google.maps.Marker()
+    this.props.onMarkerInitialized(marker)
     construct(Marker.propTypes, updaterMap, this.props, marker)
     const markerClusterer = this.context[MARKER_CLUSTERER]
+    const overlappingSpiderfier = this.context[OVERLAPPING_SPIDERFIER]
     if (markerClusterer) {
       markerClusterer.addMarker(marker, !!this.props.noRedraw)
+    } else if (overlappingSpiderfier) {
+      overlappingSpiderfier.addMarker(marker)
     } else {
       marker.setMap(this.context[MAP])
     }
@@ -470,7 +491,7 @@ const eventMap = {
   onMouseUp: "mouseup",
   onRightClick: "rightclick",
   onAnimationChanged: "animation_changed",
-  onClick: "click",
+  onClick: "spider_click",
   onClickableChanged: "clickable_changed",
   onCursorChanged: "cursor_changed",
   onDrag: "drag",
