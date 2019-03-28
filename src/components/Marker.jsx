@@ -315,6 +315,7 @@ export class Marker extends React.PureComponent {
     if (markerClusterer) {
       markerClusterer.addMarker(marker, !!this.props.noRedraw)
     } else if (overlappingSpiderfier) {
+      eventMap.onClick = "spider_click"
       overlappingSpiderfier.addMarker(marker)
     } else {
       marker.setMap(this.context[MAP])
@@ -491,7 +492,7 @@ const eventMap = {
   onMouseUp: "mouseup",
   onRightClick: "rightclick",
   onAnimationChanged: "animation_changed",
-  onClick: "spider_click",
+  onClick: "click",
   onClickableChanged: "clickable_changed",
   onCursorChanged: "cursor_changed",
   onDrag: "drag",

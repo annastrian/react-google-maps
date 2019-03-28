@@ -22,6 +22,8 @@ export class OverlappingSpiderfier extends React.PureComponent {
     onClick: PropTypes.func,
 
     nearbyDistance: PropTypes.number,
+
+    onSpiderFormat: PropTypes.func,
   }
 
   static contextTypes = {
@@ -93,6 +95,7 @@ export default OverlappingSpiderfier
 
 const eventMap = {
   onClick: "click",
+  onSpiderFormat: "spider_format",
 }
 
 const updaterMap = {
