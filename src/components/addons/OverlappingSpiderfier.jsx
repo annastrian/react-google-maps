@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { OverlappingMarkerSpiderfier } from "ts-overlapping-marker-spiderfier"
 
 import {
   construct,

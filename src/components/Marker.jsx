@@ -229,11 +229,6 @@ export class Marker extends React.PureComponent {
     /**
      * function
      */
-    onSpiderClick: PropTypes.func,
-
-    /**
-     * function
-     */
     onClickableChanged: PropTypes.func,
 
     /**
@@ -313,11 +308,13 @@ export class Marker extends React.PureComponent {
     const markerClusterer = this.context[MARKER_CLUSTERER]
     const overlappingSpiderfier = this.context[OVERLAPPING_SPIDERFIER]
     if (markerClusterer) {
+      eventMap.onClick = "click"
       markerClusterer.addMarker(marker, !!this.props.noRedraw)
     } else if (overlappingSpiderfier) {
       eventMap.onClick = "spider_click"
       overlappingSpiderfier.addMarker(marker)
     } else {
+      eventMap.onClick = "click"
       marker.setMap(this.context[MAP])
     }
     this.state = {
@@ -350,8 +347,12 @@ export class Marker extends React.PureComponent {
     const marker = this.state[MARKER]
     if (marker) {
       const markerClusterer = this.context[MARKER_CLUSTERER]
+      const overlappingSpiderfier = this.context[OVERLAPPING_SPIDERFIER]
       if (markerClusterer) {
         markerClusterer.removeMarker(marker, !!this.props.noRedraw)
+      }
+      if (overlappingSpiderfier) {
+        overlappingSpiderfier.removeMarker(marker)
       }
       marker.setMap(null)
     }

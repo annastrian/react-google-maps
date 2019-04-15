@@ -112,6 +112,7 @@
     "prop-types": "^15.5.8",
     "recompose": "^0.26.0",
     "scriptjs": "^2.5.8",
+    "ts-overlapping-marker-spiderfier": "^1.0.3",
     "warning": "^3.0.0"
   },
   "peerDependencies": {
