@@ -257,9 +257,6 @@ export class MarkerClusterer extends React.PureComponent {
   componentWillUnmount() {
     componentWillUnmount(this)
     const markerClusterer = this.state[MARKER_CLUSTERER]
-    if (markerClusterer) {
-      markerClusterer.setMap(null)
-    }
   }
 
   render() {
