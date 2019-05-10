@@ -304,6 +304,8 @@ export class Marker extends React.PureComponent {
     super(props, context)
     const marker = new google.maps.Marker()
     this.props.onMarkerInitialized(marker)
+    marker.id = this.props.id
+    marker.rank = this.props.rank
     construct(Marker.propTypes, updaterMap, this.props, marker)
     const markerClusterer = this.context[MARKER_CLUSTERER]
     const overlappingSpiderfier = this.context[OVERLAPPING_SPIDERFIER]
